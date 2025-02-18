@@ -3,104 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HSKAL - Anonymous Assignment Help</title>
+    <title>Anonymous Assignment Help</title>
     <style>
-        body { 
-            font-family: Arial, sans-serif; 
-            text-align: center; 
-            background-color: #1e1e1e; 
-            color: white;
-        }
-        .container {
-            max-width: 500px;
-            margin: 20px auto;
-            padding: 20px;
-            background: #2a2a2a;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2);
-        }
-        input, select, button, textarea {
-            display: block; 
-            width: 100%; 
-            margin: 10px 0; 
-            padding: 10px; 
-            border-radius: 5px;
-            border: none;
-        }
-        button {
-            background-color: #ff5722; 
-            color: white;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #e64a19;
-        }
-        .intro {
+        body {
+            font-family: sans-serif; /* Choose a font */
+            margin: 0; /* Remove default margins */
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background: black;
+            min-height: 100vh; /* Ensure full viewport height */
         }
-        .intro h1 {
-            margin-bottom: 20px;
+        #welcome-page {
+          display: flex;
+          flex-direction: column;
+          align-items: center;  /* Center horizontally */
+          justify-content: center; /* Center vertically */
+          flex-grow: 1; /* Allow welcome page to take up available space */
+          text-align: center;
         }
-        .bubble-button {
-            padding: 15px 30px;
-            border-radius: 30px;
-            background: #ff5722;
+
+        #form-page {
+          display:none; /* Initially hidden */
+          flex-grow: 1; /* Allow form page to take up available space */
+          padding: 20px;
+        }
+        .container {
+          max-width: 800px;  /* Limit container width */
+          margin: 20px auto; /* Center the container */
+        }
+        .bubble {
+            background-color: #4CAF50; /* Green */
             color: white;
-            font-size: 18px;
-            cursor: pointer;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer; /* Make it look clickable */
+            margin-top: 20px;
+        }
+        label {
+            display: block; /* Make labels stack on top of inputs */
+            margin-bottom: 5px;
+        }
+        input[type="text"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
             border: none;
+            cursor: pointer;
         }
-        .hidden {
-            display: none;
+        /* Style for the background image */
+        body {
+            background-image: url("https://ibb.co/XZ5LGs3d"); /* Replace with your image URL */
+            background-size: cover; /* Cover the entire background */
+            background-repeat: no-repeat; /* Prevent image from repeating */
         }
+        .note {
+            text-align: center;
+            margin-top: 20px; /* Space above the note */
+            font-size: smaller;
+        }
+
     </style>
-    <script>
-        function enterSite() {
-            document.querySelector('.intro').classList.add('hidden');
-            document.querySelector('.container').classList.remove('hidden');
-        }
-    </script>
 </head>
 <body>
-    <div class="intro">
-        <h1>Welcome to HSKAL</h1>
-        <p>Your anonymous assignment helper. Fast, reliable, and confidential.</p>
-        <button class="bubble-button" onclick="enterSite()">Get In</button>
+
+    <div id="welcome-page">
+        <h1>Welcome to Anonymous Assignment Help</h1>
+        <p>"Your academic success, our confidential support."</p> <p>"Focus on learning, we'll handle the assignments."</p>
+        <div class="bubble" onclick="showForm()">Get Started</div>
     </div>
-    
-    <div class="container hidden">
-        <h1>Assignment Request Form</h1>
-        <p>Get your assignments done anonymously.</p>
-        
-        <!-- Updated Form Action URL -->
-        <form action="https://formspree.io/f/xkgokwrk" method="POST">
-            <label for="name">Your Name:</label>
+
+    <div id="form-page" class="container">
+        <h2>Assignment Details</h2>
+        <form id="assignmentForm" action="https://formspree.io/f/xkgokwrk" method="POST">
+            <label for="name">Name:</label>
             <input type="text" id="name" name="name" required>
-            
-            <label for="bluebook">Blue Book Option:</label>
+
+            <label for="class">Class:</label>
+            <input type="text" id="class" name="class" required>
+
+            <label for="bluebook">Blue Book Provided:</label>
             <select id="bluebook" name="bluebook">
-                <option value="own">I will provide my own</option>
-                <option value="provided">Provide from your side</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+                <option value="purchase">I will purchase</option>
             </select>
-            
-            <label for="date">Submission Date:</label>
-            <input type="date" id="date" name="date" required>
-            
-            <label for="message">Message to Admin:</label>
-            <textarea id="message" name="message" required></textarea>
-            
-            <label for="file">Upload Reference (Image, PDF, Drive link):</label>
-            <input type="file" id="file" name="file">
-            
-            <button type="submit">Submit Request</button>
+
+            <label for="additional">Additional Information:</label>
+            <textarea id="additional" name="additional" rows="4"></textarea>
+
+            <label for="reference">Upload Reference File (Optional):</label>
+            <input type="file" id="reference" name="reference">
+
+            <button type="submit">Submit</button>
         </form>
-        
-        <p>For payments, contact us via private message after submitting your request.</p>
+        <div class="note">₹4 will be charged for one page (2 sides). Payment via online transfer or cash after completion. Extra charges apply for immediate assignments.</div>
     </div>
+
+    <script>
+        function showForm() {
+            document.getElementById('welcome-page').style.display = 'none';
+            document.getElementById('form-page').style.display = 'block';
+        }
+    </script>
+
 </body>
 </html>
